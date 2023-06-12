@@ -13,11 +13,7 @@ namespace SolidSample.Game.GameLogic
         public GameProcess(IGameBuilder gameBuilder)
         {
             ActualGameState = new ActualGameState();
-            ActualGameState.State = GameState.START;
-            ActualGameState.TryCount = 0;
-            ActualGameState.ComputerNumber = gameBuilder.GenerateComputerNumber();
-            ActualGameState.PlayerNumber = 0;
-
+            InitStartSettings(gameBuilder);
             GameRules = gameBuilder.Build();
         }
 
@@ -33,6 +29,14 @@ namespace SolidSample.Game.GameLogic
         public bool IsFinishGame()
         {
             return ActualGameState.State == GameState.FINISH;
+        }
+
+        private void InitStartSettings(IGameBuilder gameBuilder)
+        {
+            ActualGameState.State = GameState.START;
+            ActualGameState.TryCount = 0;
+            ActualGameState.ComputerNumber = gameBuilder.GenerateComputerNumber();
+            ActualGameState.PlayerNumber = 0;
         }
     }
 }
