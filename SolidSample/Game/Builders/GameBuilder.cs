@@ -1,24 +1,29 @@
-﻿using SolidSample.Game.GameRules.OneRule;
+﻿using SolidSample.Game.GameRules.Aggregate;
 using SolidSample.Game.GameRules.RulesBundle;
-using SolidSample.Models;
+using SolidSample.Game.GameRules.RulesDefinitions;
+using SolidSample.Game.GameRules.Validation;
 using ConcretteGameRules = SolidSample.Game.GameRules.RulesBundle.GameRules;
 
 namespace SolidSample.Game.Builders
 {
     internal class GameBuilder : IGameBuilder
     {
-        Settings Settings { get; }
+        IRuleDefinition RuleDefinition { get; }
 
-        public GameBuilder(Settings settings)
+        public GameBuilder(IRulesAggregate rulesAggregate, IRulesValidator rulesValidator)
         {
-            Settings = settings;
+            RuleDefinition = new RuleDefinition(rulesAggregate, rulesValidator);
         }
 
-        public IGamesRules Build(ActualGameState actualGameState)
+        public IGamesRules Build()
         {
             IGameRulesFillable gameRules = new ConcretteGameRules();
-            //TODO:
-            gameRules.AddRule(new GameRule(actualGameState));
+            var rules = RuleDefinition.GetRules();
+            foreach (var rule in rules)
+            {
+                gameRules.AddRule(rule);
+            }
+            
             if (gameRules is IGamesRules)
             {
                 return gameRules as IGamesRules;

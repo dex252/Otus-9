@@ -15,7 +15,18 @@ namespace SolidSample.Game.GameRules.RulesBundle
             var gameRules = GameRulesList.Where(rule => rule.IsValid(gameState));
             if (!gameRules.Any())
             {
-                throw new Exception("игровые правила не заданы для текущей игровой ситуации");
+                throw new Exception("Игровые правила не заданы для текущей игровой ситуации");
+            }
+
+            if (gameRules.Count() == 1)
+            {
+                return gameRules;
+            }
+
+            var hightPriority = gameRules.Where(e => e.IsHightPriority());
+            if (hightPriority.Any())
+            {
+                return hightPriority;
             }
 
             return gameRules;

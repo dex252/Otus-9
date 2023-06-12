@@ -28,6 +28,9 @@ namespace SolidSample.Game
                 await Task.Delay(DELAY_TIME_MS);
                 await GameProcess.NextAction();
             }
+
+            await Console.Out.WriteLineAsync("Нажмите любую клавишу для завершения игры...");
+            await Console.In.ReadLineAsync();
         }
     }
 }

@@ -8,6 +8,6 @@ namespace SolidSample.Game.Builders
         /// <summary>
         /// Построить правила игры
         /// </summary>
-        IGamesRules Build(ActualGameState actualGameState);
+        IGamesRules Build();
     }
 }

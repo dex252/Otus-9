@@ -1,29 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SolidSample.Enums;
 using SolidSample.Models;
 
 namespace SolidSample.Game.GameRules.OneRule
 {
     public class GameRule : IGameRule
     {
-        private ActualGameState ActualGameState;
+        Func<ActualGameState, Task> ExecuteFunction { get; }
+        Func<ActualGameState, bool> ValidateFunction { get; }
+        GameRulePriority Priority { get; }
 
-        public GameRule(ActualGameState actualGameState)
+        public GameRule( 
+            Func<ActualGameState, Task> executeFunction, 
+            Func<ActualGameState, bool> validateFunction,
+            GameRulePriority priority)
         {
-            ActualGameState = actualGameState;
+            ExecuteFunction = executeFunction;
+            ValidateFunction = validateFunction;
+            Priority = priority;
         }
 
-        public Task Execute()
+        public Task Execute(ActualGameState gameState)
         {
-            throw new NotImplementedException();
+            return ExecuteFunction.Invoke(gameState);
         }
 
-        bool IGameRule.IsValid(ActualGameState gameState)
+        public bool IsValid(ActualGameState gameState)
         {
-            throw new NotImplementedException();
+            return ValidateFunction.Invoke(gameState);
+        }
+
+        public bool IsHightPriority()
+        {
+            return Priority == GameRulePriority.High;
         }
     }
 }

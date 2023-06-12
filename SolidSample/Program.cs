@@ -4,6 +4,8 @@ using SettingsReader.SettingsAggregation.Readers;
 using SettingsReader.SettingsAggregation.Deserializations;
 using SolidSample.Game;
 using SolidSample.Game.Builders;
+using SolidSample.Game.GameRules.Validation;
+using SolidSample.Game.GameRules.Aggregate;
 
 namespace SolidSample
 {
@@ -18,10 +20,12 @@ namespace SolidSample
             var settingsAggregator = new SettingsAggregator<Settings>(reader, deserializator);
             var settings = settingsAggregator.GetSettings();
 
-            IGameBuilder gameBuilder = new GameBuilder(settings);
-            var game = new GameRunner(gameBuilder);
+            IRulesBuilder rulesBuilder = new RulesBuilder(settings);
+            IRulesAggregate rulesAggregate = new RulesAggregate(rulesBuilder);
+            IRulesValidator rulesValidator = new SingleRuleValidator(settings);
 
-            Console.WriteLine("Hello, World!");
+            IGameBuilder gameBuilder = new GameBuilder(rulesAggregate, rulesValidator);
+            var game = new GameRunner(gameBuilder);
             await game.Run();
         }
     }

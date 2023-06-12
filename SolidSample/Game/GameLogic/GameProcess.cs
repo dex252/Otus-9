@@ -15,7 +15,7 @@ namespace SolidSample.Game.GameLogic
             ActualGameState = new ActualGameState();
             ActualGameState.State = GameState.START;
 
-            GameRules = gameBuilder.Build(ActualGameState);
+            GameRules = gameBuilder.Build();
         }
 
         public async Task NextAction()
@@ -23,7 +23,7 @@ namespace SolidSample.Game.GameLogic
             var rules = GameRules.GetRules(ActualGameState);
             foreach (var rule in rules)
             {
-                await rule.Execute();
+                await rule.Execute(ActualGameState);
             }
         }
 

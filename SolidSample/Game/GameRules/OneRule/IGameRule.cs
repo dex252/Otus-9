@@ -2,13 +2,20 @@
 
 namespace SolidSample.Game.GameRules.OneRule
 {
-    internal interface IGameRule
+    public interface IGameRule
     {
         /// <summary>
         /// Выполнить действия, соответствующие текущей игровой ситуации
         /// </summary>
+        /// <param name="gameState"></param>
         /// <returns></returns>
-        Task Execute();
+        Task Execute(ActualGameState gameState);
+
+        /// <summary>
+        /// Возвращает приоритет выполнения функции
+        /// </summary>
+        /// <returns></returns>
+        bool IsHightPriority();
 
         /// <summary>
         /// Проверить, соответствует ли данное правило текущей игровой ситуации
