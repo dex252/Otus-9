@@ -7,7 +7,7 @@ namespace SolidSample.Game.GameRules.RulesBundle
     {
         public void AddRule(IGameRule gameRule)
         {
-            GameRulesList.Append(gameRule);
+            GameRulesList.Add(gameRule);
         }
 
         public IEnumerable<IGameRule> GetRules(ActualGameState gameState)
@@ -15,7 +15,7 @@ namespace SolidSample.Game.GameRules.RulesBundle
             var gameRules = GameRulesList.Where(rule => rule.IsValid(gameState));
             if (!gameRules.Any())
             {
-                throw new Exception("Игровые правила не заданы для текущей игровой ситуации");
+                throw new Exception($"Игровые правила не заданы для текущей игровой ситуации: Игрок: {gameState.PlayerNumber}, Компьютер: {gameState.ComputerNumber}");
             }
 
             if (gameRules.Count() == 1)

@@ -1,15 +1,16 @@
 ﻿using SolidSample.Enums;
+using SolidSample.Game.GameRules.RulesDefinitions.Rules.Abstractions;
 using SolidSample.Models;
 
 namespace SolidSample.Game.GameRules.RulesDefinitions.Rules
 {
-    internal class EndOfTryCount : IRuleSetter
+    internal class EndOfTryCountRule : IRuleSetter
     {
         Settings Settings { get; }
 
         public GameRulePriority Priority => GameRulePriority.High;
 
-        public EndOfTryCount(Settings settings)
+        public EndOfTryCountRule(Settings settings)
         {
             Settings = settings;
 

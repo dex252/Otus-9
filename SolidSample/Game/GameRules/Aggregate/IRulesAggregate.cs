@@ -8,6 +8,6 @@ namespace SolidSample.Game.GameRules.Aggregate
         /// Заполнить игровую логику правилами
         /// </summary>
         /// <param name="rules"></param>
-        void FillRules(IEnumerable<IGameRule> rules);
+        IEnumerable<IGameRule> FillRules();
     }
 }

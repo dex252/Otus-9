@@ -4,11 +4,11 @@ namespace SolidSample.Game.GameRules.RulesBundle
 {
     internal abstract class AGameRules
     {
-        public IEnumerable<IGameRule> GameRulesList { get; }
+        public List<IGameRule> GameRulesList { get; }
 
         public AGameRules()
         {
-            GameRulesList = new List<GameRule>();
+            GameRulesList = new List<IGameRule>();
         }
     }
 }

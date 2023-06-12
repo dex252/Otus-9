@@ -6,6 +6,7 @@ using SolidSample.Game;
 using SolidSample.Game.Builders;
 using SolidSample.Game.GameRules.Validation;
 using SolidSample.Game.GameRules.Aggregate;
+using RandomNumberGenerator = SolidSample.Game.Builders.RandomNumberGenerator;
 
 namespace SolidSample
 {
@@ -22,9 +23,10 @@ namespace SolidSample
 
             IRulesBuilder rulesBuilder = new RulesBuilder(settings);
             IRulesAggregate rulesAggregate = new RulesAggregate(rulesBuilder);
-            IRulesValidator rulesValidator = new SingleRuleValidator(settings);
+            IRulesValidator rulesValidator = new AnyRuleValidator(settings);
 
-            IGameBuilder gameBuilder = new GameBuilder(rulesAggregate, rulesValidator);
+            INumberGenerator numberGenerator = new RandomNumberGenerator(settings);
+            IGameBuilder gameBuilder = new GameBuilder(rulesAggregate, rulesValidator, numberGenerator);
             var game = new GameRunner(gameBuilder);
             await game.Run();
         }

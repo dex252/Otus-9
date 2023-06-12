@@ -14,9 +14,8 @@ namespace SolidSample.Game.GameRules.RulesDefinitions
         {
             RulesValidator = rulesValidator;
             RulesAggregate = rulesAggregate;
-            Rules = new List<IGameRule>();
 
-            RulesAggregate.FillRules(Rules);
+            Rules = RulesAggregate.FillRules();
             RulesValidator.Validate(Rules);
         }
 

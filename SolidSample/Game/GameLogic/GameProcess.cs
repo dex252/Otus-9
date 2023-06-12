@@ -14,6 +14,9 @@ namespace SolidSample.Game.GameLogic
         {
             ActualGameState = new ActualGameState();
             ActualGameState.State = GameState.START;
+            ActualGameState.TryCount = 0;
+            ActualGameState.ComputerNumber = gameBuilder.GenerateComputerNumber();
+            ActualGameState.PlayerNumber = 0;
 
             GameRules = gameBuilder.Build();
         }

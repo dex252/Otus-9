@@ -23,7 +23,7 @@ namespace SolidSample.Game
 
         internal async Task Run()
         {
-            while (GameProcess.IsFinishGame())
+            while (!GameProcess.IsFinishGame())
             {
                 await Task.Delay(DELAY_TIME_MS);
                 await GameProcess.NextAction();

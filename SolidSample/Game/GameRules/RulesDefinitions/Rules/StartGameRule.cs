@@ -4,24 +4,30 @@ using SolidSample.Models;
 
 namespace SolidSample.Game.GameRules.RulesDefinitions.Rules
 {
-    internal class FinishGameRule : IRuleSetter
+    internal class StartGameRule: BaseInput, IRuleSetter
     {
         Settings Settings { get; }
+
         public GameRulePriority Priority => GameRulePriority.High;
-        public FinishGameRule(Settings settings)
+
+        public StartGameRule(Settings settings)
         {
             Settings = settings;
+
         }
 
         public async Task GetExecutableFunction(ActualGameState actualGameState)
         {
-            actualGameState.State = GameState.FINISH;
-            await Console.Out.WriteLineAsync("Наши поздравления, вы отгадали число и одержали победу!");
+            actualGameState.State = GameState.PROCESS;
+            await Console.Out.WriteLineAsync($"Игра началась! Компьютер загадал число в диапозоне от {Settings.Range.MinValue} до {Settings.Range.MaxValue}.");
+
+            var number = await GetInputByPlayer();
+            actualGameState.PlayerNumber = number;
         }
 
         public bool GetValidationFunction(ActualGameState actualGameState)
         {
-            return actualGameState.ComputerNumber == actualGameState.PlayerNumber;
+            return actualGameState.State == GameState.START;
         }
     }
 }

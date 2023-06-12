@@ -1,5 +1,4 @@
 ﻿using SolidSample.Game.GameRules.RulesBundle;
-using SolidSample.Models;
 
 namespace SolidSample.Game.Builders
 {
@@ -9,5 +8,11 @@ namespace SolidSample.Game.Builders
         /// Построить правила игры
         /// </summary>
         IGamesRules Build();
+
+        /// <summary>
+        /// Сгенерировать число, загаданное компьютером
+        /// </summary>
+        /// <returns></returns>
+        int GenerateComputerNumber();
     }
 }

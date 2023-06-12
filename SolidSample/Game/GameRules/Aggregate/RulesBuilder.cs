@@ -1,4 +1,5 @@
 ﻿using SolidSample.Game.GameRules.RulesDefinitions.Rules;
+using SolidSample.Game.GameRules.RulesDefinitions.Rules.Abstractions;
 using SolidSample.Models;
 
 namespace SolidSample.Game.GameRules.Aggregate
@@ -17,8 +18,11 @@ namespace SolidSample.Game.GameRules.Aggregate
             var rulesBundle = new List<IRuleSetter>()
             {
                 new FinishGameRule(Settings),
-                new EndOfTryCount(Settings),
+                new EndOfTryCountRule(Settings),
                 new WrongNumberGameRule(Settings),
+                new StartGameRule(Settings),
+                new LessThenRule(Settings),
+                new MoreThenRule(Settings),
             };
 
             return rulesBundle;

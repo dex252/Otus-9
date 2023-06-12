@@ -9,10 +9,17 @@ namespace SolidSample.Game.Builders
     internal class GameBuilder : IGameBuilder
     {
         IRuleDefinition RuleDefinition { get; }
+        INumberGenerator NumberGenerator { get; }
 
-        public GameBuilder(IRulesAggregate rulesAggregate, IRulesValidator rulesValidator)
+        public GameBuilder(IRulesAggregate rulesAggregate, IRulesValidator rulesValidator, INumberGenerator numberGenerator)
         {
             RuleDefinition = new RuleDefinition(rulesAggregate, rulesValidator);
+            NumberGenerator = numberGenerator;
+        }
+
+        public int GenerateComputerNumber()
+        {
+            return NumberGenerator.GenerateNumber();
         }
 
         public IGamesRules Build()
